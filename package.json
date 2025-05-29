@@ -1,0 +1,35 @@
+{
+  "name": "notion-socket-server",
+  "version": "1.0.0",
+  "description": "Socket.IO server for real-time collaboration - Vercel compatible",
+  "type": "module",
+  "main": "api/socket.js",
+  "scripts": {
+    "start": "node socket-server.js",
+    "dev": "nodemon socket-server.js",
+    "vercel-dev": "vercel dev --listen 5050",
+    "vercel-dev-3000": "vercel dev --listen 3000",
+    "deploy": "vercel --prod",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "socket.io",
+    "real-time",
+    "collaboration",
+    "websocket",
+    "vercel",
+    "serverless"
+  ],
+  "author": "",
+  "license": "MIT",
+  "dependencies": {
+    "socket.io": "^4.7.5"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2",
+    "@vercel/node": "^3.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+} 

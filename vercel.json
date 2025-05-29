@@ -1,0 +1,22 @@
+{
+  "version": 2,
+  "functions": {
+    "api/socket.js": {
+      "maxDuration": 30
+    }
+  },
+  "routes": [
+    {
+      "src": "/socket.io/(.*)",
+      "dest": "/api/socket"
+    },
+    {
+      "src": "/health",
+      "dest": "/api/socket"
+    },
+    {
+      "src": "/(.*)",
+      "dest": "/api/socket"
+    }
+  ]
+} 
