@@ -5,6 +5,7 @@ if (!global.rooms) {
   global.rooms = new Map();
 }
 
+
 // Generate a random color for user cursors
 function generateUserColor() {
   const colors = [
