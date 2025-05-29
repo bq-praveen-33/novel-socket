@@ -1,7 +1,7 @@
 import { createServer } from "http";
 import { Server } from "socket.io";
 
-const port = 5050;
+const port = process.env.PORT || 5050;
 
 // Store for real-time collaboration data
 const rooms = new Map();
@@ -42,8 +42,17 @@ const server = createServer((req, res) => {
 // Initialize Socket.IO server
 const io = new Server(server, {
   cors: {
-    origin: "*",
+    origin: process.env.NODE_ENV === 'production' 
+      ? [
+          "https://your-frontend-domain.com",
+          "https://your-frontend-domain.vercel.app",
+          "https://localhost:3000",
+          "http://localhost:3000",
+          "http://localhost:5173" // Vite dev server
+        ]
+      : "*", // Allow all origins in development
     methods: ["GET", "POST"],
+    credentials: true
   },
 });
 
