@@ -32,13 +32,21 @@ let io;
 
 function initializeSocketIO(res) {
   if (!io) {
+    console.log('[SOCKET.IO] Initializing Socket.IO server for Vercel...');
+    
     io = new Server(res.socket.server, {
       path: "/api/socket",
       addTrailingSlash: false,
       cors: {
         origin: "*",
         methods: ["GET", "POST"],
+        credentials: false
       },
+      allowEIO3: true,
+      transports: ['polling', 'websocket'],
+      upgradeTimeout: 30000,
+      pingTimeout: 25000,
+      pingInterval: 10000
     });
 
     io.on("connection", (socket) => {
@@ -242,6 +250,8 @@ function initializeSocketIO(res) {
         }
       });
     });
+
+    console.log('[SOCKET.IO] Server initialized successfully');
   }
   return io;
 }
@@ -257,7 +267,7 @@ export default function handler(req, res) {
   }
 
   if (!res.socket.server.io) {
-    console.log('[SOCKET.IO] Initializing Socket.IO server...');
+    console.log('[SOCKET.IO] Setting up Socket.IO server...');
     const io = initializeSocketIO(res);
     res.socket.server.io = io;
   }

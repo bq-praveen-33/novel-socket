@@ -211,13 +211,19 @@
             
             // Configure connection based on server type
             const socketConfig = {
-                transports: ['websocket', 'polling']
+                timeout: 20000,
+                forceNew: true
             };
             
             if (currentServerType === 'vercel' || serverUrl.includes('vercel.app') || serverUrl.includes('localhost:3000') || serverUrl.includes('localhost:5051')) {
                 socketConfig.path = '/api/socket';
-                log('🔧 Using Vercel configuration with /api/socket path');
+                // For Vercel, prioritize polling over websocket
+                socketConfig.transports = ['polling', 'websocket'];
+                socketConfig.upgrade = false; // Start with polling only
+                log('🔧 Using Vercel configuration with /api/socket path (polling transport)');
             } else {
+                // For traditional server, websocket works better
+                socketConfig.transports = ['websocket', 'polling'];
                 log('🔧 Using traditional server configuration');
             }
             
