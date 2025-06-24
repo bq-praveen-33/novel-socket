@@ -8,7 +8,7 @@ const server = createServer(app);
 
 // Configure CORS for Express
 app.use(cors({
-  origin: process.env.FRONTEND_URL ,
+  origin: process.env.FRONTEND_URL||"http://localhost:3000",
   credentials: true
 }));
 
@@ -16,7 +16,7 @@ app.use(cors({
 const io = new Server(server, {
   path: "/api/socket",
   cors: {
-    origin: process.env.FRONTEND_URL,
+    origin: process.env.FRONTEND_URL || "http://localhost:3000",
     methods: ["GET", "POST"],
     credentials: true
   }
